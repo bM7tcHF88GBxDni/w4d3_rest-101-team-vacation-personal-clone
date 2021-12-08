@@ -70,10 +70,15 @@ export async function updateAstronautById(requestId, updates) {
 
 export async function getAstronautsByName(search) {
   let astronauts = deployAstronauts();
-  const searchResults = astronauts.filter(({ firstName }) =>
-    firstName.toLowerCase().includes(search.toLowerCase()).filter(({ lastName }) =>
-    lastName.toLowerCase().includes(search.toLowerCase()))
+  let searchResults = astronauts.filter( //filter list of astronauts by first name
+    ({ firstName }) => // extracting the key from the object using fancy destructuring syntax === element.firstName
+    firstName.toLowerCase().includes(search.toLowerCase())
   );
+
+  searchResults = searchResults.filter( //now filter the list again by last names
+    ({ lastName }) =>
+    lastName.toLowerCase().includes(search.toLowerCase())
+  ) 
 
   return searchResults;
 }
