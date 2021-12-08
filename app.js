@@ -61,7 +61,7 @@ app.get("/astronauts", async function (req, res) {
 //use create astronaut funtion
 
 
-app.post("/?astronauts", async function(req, res){
+app.post("/astronauts", async function(req, res){
 let newAstronaut = await createAstronaut(req.body)
 console.log(newAstronaut);
 res.json({
@@ -86,9 +86,9 @@ app.get("/astronauts/:id", async function(req, res) { //params
   let astronaut = await getAstronautById(id);
 
   res.json(
-    {
-      "success": true,
-      "payload": astronaut 
+    { 
+      success: true,
+      payload: astronaut 
     });
 });
 
