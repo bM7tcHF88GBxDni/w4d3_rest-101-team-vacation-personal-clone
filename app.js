@@ -28,33 +28,21 @@ res.json({
   "payload": returnedData
 })
 
-// Task 1
+*/
 
-Write a request handler to return the correct response when a `GET` request is received to `/astronauts`. Choose the appropriate 
-function from the imported functions at the top of the `app.js` to get your data. */
-
-// --- Plain ----
-// Request /astronauts
-// respond with all the astronauts
-// get astronauts: will give to us all we want
-// we want to send back the pattern with the astronauts
-// add the astronauts to the pattern
-// also return success if is true or false
-// figure what success is or fail is
-// Sucess: Get all astronauts
-// Fail: Don't find them
-// we want check if getastrounats is there or not
-// how to check if it's an object,
+// Bonus Task (reworking Task 1 endpoint)
 
 app.get("/astronauts", async function (req, res) {
-  let astronauts = await getAstronauts();
+
+  let astronauts = await getAstronautsByName(req.query);
+
   if (astronauts === undefined) {
     // compare if astronauts are there
     res.json({
       success: false,
       payload: astronauts,
     });
-    return;
+    return; 
   } else {
     // if all is there show them
     res.json({
@@ -73,12 +61,12 @@ app.get("/astronauts", async function (req, res) {
 //use create astronaut funtion
 
 
-app.post("/astronauts", async function(req, res){
+app.post("/?astronauts", async function(req, res){
 let newAstronaut = await createAstronaut(req.body)
 console.log(newAstronaut);
 res.json({
   "success": true,
-  "payload": newAstronaut })
+  "payload": newAstronaut }) 
 })  
 
 // Task 3

@@ -70,15 +70,39 @@ export async function updateAstronautById(requestId, updates) {
 
 export async function getAstronautsByName(search) {
   let astronauts = deployAstronauts();
+
+  //because the URL path is /astronauts?name=<name> it's ambiguous what the actual format is, going to assume it is always "Firstname Lastname"
+  //e.g. the request will be http://localhost:5000/astronauts/?name=Gary+Baldwick
+  
+  console.log(search); // { name: 'Gary Baldwick' }
+
+  let name = search.name.split(" "); //returns an array of ["Firstname", "Lastname"]
+  let surname = name[1]; //assigning second element to new surname variable
+  name = name[0]; //reassigning first element to name
+  
+  console.log(`Name is: ${name} ${surname}`);
+
   let searchResults = astronauts.filter( //filter list of astronauts by first name
-    ({ firstName }) => // extracting the key from the object using fancy destructuring syntax === element.firstName
-    firstName.toLowerCase().includes(search.toLowerCase())
-  );
+
+    function({ firstName }) { // extracting the key from the object using fancy destructuring syntax, same as element.firstName
+      return firstName.toLowerCase().includes(name.toLowerCase());
+    }
+
+  );  //we now have a list where the first names match
+  
+  console.log(`Array after filtering first names: ${searchResults}`);
 
   searchResults = searchResults.filter( //now filter the list again by last names
     ({ lastName }) =>
-    lastName.toLowerCase().includes(search.toLowerCase())
-  ) 
+    lastName.toLowerCase().includes(surname.toLowerCase())
+  ); //we now have a list where both first and last names match
 
+  console.log(`Array after filtering second names: ${searchResults}`);
+
+  //error handling
+  if (Object.keys(searchResults).length === 0) { //if object is empty
+    return `No astronaut named ${name} ${surname} found.`;
+  }
+  
   return searchResults;
 }
