@@ -110,6 +110,18 @@ app.get("/astronauts/:id", async function(req, res) { //params
 /* Write the request handler to perform the action and return the data from the function replaceAstronautById. Have this handler 
 listen to requests at the appropriate path. */
 
+app.put("/astronauts/:id", async (req, res) => {
+  let id = req.params.id;
+  let newAstronaut = req.body;
+
+  res.json(
+    {
+      "success": true,
+      "payload": await replaceAstronautById(id, newAstronaut)
+    });
+
+});
+
 // Task 5
 
 /* Write the request handler to perform the action and return the data from the function deleteAstronautById. Have this handler 
