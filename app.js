@@ -140,5 +140,12 @@ app.delete("/astronauts/:id", async (req, res) => {
 
 /* Write the request handler to perform the action and return the data from the function updateAstronautById. Have this handler 
 listen to requests at the appropriate path. */
+app.patch("/astronauts/:id", async (req, res) => {
+  res.json({
+    success: true,
+    payload: await updateAstronautById(req.params.id, req.body)
+  })
+});
+
 
 export default app;
