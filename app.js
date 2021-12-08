@@ -126,6 +126,15 @@ app.put("/astronauts/:id", async (req, res) => {
 
 /* Write the request handler to perform the action and return the data from the function deleteAstronautById. Have this handler 
 listen to requests at the appropriate path. */
+app.delete("/astronauts/:id", async (req, res) => {
+  res.json(
+    {
+      "success": true,
+      "payload": await deleteAstronautById(req.params.id)
+    }
+  )
+});
+
 
 // Task 6
 
